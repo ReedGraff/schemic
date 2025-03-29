@@ -81,7 +81,7 @@ def solve_math_problem(problem_text: str):
     )
 
     # Parse the response and add back all defaults
-    content_dict = response.choices[0].message.content
+    content_dict = json.loads(response.choices[0].message.content)
     solution = MathProblem.parse(content_dict)
     
     return solution
