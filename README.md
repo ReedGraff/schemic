@@ -1,9 +1,9 @@
 # Schemic
-
 [![PyPI version](https://badge.fury.io/py/schemic.svg)](https://badge.fury.io/py/schemic)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)  
+**Run AI models on subsets of pre-existing Pydantic models**
 
-## The Problem
+# The Problem
 
 When working with GPT models and Pydantic, developers frequently encounter a frustrating workflow issue:
 
@@ -20,7 +20,7 @@ This forces you to:
 3. Add back datetime and other complex objects afterward
 4. Write repetitive code to convert between your application models and "GPT-friendly" models
 
-## Schemic's Solution
+# Schemic's Solution
 
 Schemic solves this problem by extending Pydantic's `BaseModel` with methods that:
 
@@ -31,13 +31,13 @@ Schemic solves this problem by extending Pydantic's `BaseModel` with methods tha
 
 No more duplicate model definitions. No more manual field manipulation. Just use your regular Pydantic models with GPT.
 
-## Installation
+# Installation
 
 ```bash
 pip install schemic
 ```
 
-## Quick Example
+# Quick Example
 
 ```python
 import datetime
@@ -92,22 +92,22 @@ print(f"Answer: {solution.answer}")
 print(f"Created at: {solution.created_at}")  # Default timestamp added automatically
 ```
 
-## Key Features
+# Key Features
 
-### For Schema Transformation
+## For Schema Transformation
 
 - **`prepare_removeAllWithProp(*args)`**: Remove fields with specified properties (e.g., "default", "description")
 - **`prepare_IncludeAllWithProp(*args)`**: Include only fields with specified properties
 - **`prepare_IncludeAllWithFunction(*args)`**: Include only fields with s_fn property matching specified strings
 - **`prepare_removeAllWithFunction(*args)`**: Remove fields with s_fn property matching specified strings
 
-### For Response Parsing
+## For Response Parsing
 
 - **`parse(data: dict)`**: Parse GPT response and restore defaults and custom types
 
-## Detailed Documentation
+# Detailed Documentation
 
-### SchemicModel Classes
+## SchemicModel Classes
 
 Schemic works by extending Pydantic's `BaseModel` class:
 
@@ -119,23 +119,23 @@ class MyModel(SchemicModel):
     pass
 ```
 
-### Preparing Models for GPT
+## Preparing Models for GPT
 
-#### Remove Fields with Default Values
+### Remove Fields with Default Values
 
 ```python
 # Remove all fields with default values when sending to GPT
 response_format = MyModel.prepare_removeAllWithProp("default")
 ```
 
-#### Include Only Required Fields
+### Include Only Required Fields
 
 ```python
 # Only include fields that don't have defaults (required fields)
 response_format = MyModel.prepare_IncludeAllWithProp("required")
 ```
 
-#### Custom Field Selection
+### Custom Field Selection
 
 Use the `s_fn` property to tag fields for specific functions:
 
@@ -156,7 +156,7 @@ public_schema = User.prepare_IncludeAllWithFunction("public")
 no_private_schema = User.prepare_removeAllWithFunction("private")
 ```
 
-### Parsing GPT Responses
+## Parsing GPT Responses
 
 ```python
 # Get response from GPT
@@ -171,7 +171,7 @@ content_dict = response.choices[0].message.content
 my_model_instance = MyModel.parse(content_dict)
 ```
 
-## Advanced Example
+# Advanced Example
 
 Here's a more complex example showing how Schemic can handle nested models:
 
@@ -215,7 +215,7 @@ user_input_schema = User.prepare_removeAllWithProp("default")
 user_input_schema = User.prepare_removeAllWithFunction("system")
 ```
 
-## Why Use Schemic?
+# Why Use Schemic?
 
 - **Eliminate Duplicate Models**: Define your data model once and use it for both your application and GPT.
 - **Preserve Type Safety**: Maintain Pydantic's validation while still being compatible with GPT.
@@ -223,10 +223,10 @@ user_input_schema = User.prepare_removeAllWithFunction("system")
 - **Flexible Field Selection**: Easily select which fields to send to GPT based on properties or custom tags.
 - **Automatic Default Handling**: No more manually adding default values back to GPT responses.
 
-## Contributing
+# Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
-## License
+# License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
