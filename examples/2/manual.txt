@@ -1,0 +1,82 @@
+{
+    "type": "json_schema",
+    "json_schema": {
+        "strict": True,
+        "name": "MathProblem",
+        "schema": { # Added everything before this line (AKA requirement #8)
+            "$defs": {
+                "ReasoningSteps": {
+                    "additionalProperties": False, # Added this line (AKA requirement #1)
+                    "properties": {
+                        "created_at": {
+                            # removed default from here (AKA requirement #3)
+                            "description": "Last edited timestamp",
+                            # removed format from here (AKA requirement #4)
+                            "title": "Created At",
+                            "type": "string"
+                        },
+                        "step": {
+                            "description": "Step in the reasoning process",
+                            "title": "Step",
+                            "type": "string"
+                        },
+                        "explanation": {
+                            "description": "Explanation of the step",
+                            "title": "Explanation",
+                            "type": "string"
+                        },
+                        "result": {
+                            "description": "Result of the step",
+                            "title": "Result",
+                            "type": "number"
+                        }
+                    },
+                    "required": [
+                        "created_at", # Added this line (AKA requirement #2)
+                        "step",
+                        "explanation",
+                        "result"
+                    ],
+                    "title": "ReasoningSteps",
+                    "type": "object"
+                }
+            },
+            "properties": {
+                "created_at": {
+                    # removed default from here (AKA requirement #3)
+                    "description": "Creation timestamp",
+                    # removed format from here (AKA requirement #4)
+                    "title": "Created At",
+                    "type": "string"
+                },
+                "problem": {
+                    "description": "The math problem to solve",
+                    "title": "Problem",
+                    "type": "string"
+                },
+                "answer": {
+                    "description": "The answer to the math problem",
+                    "title": "Answer",
+                    "type": "number"
+                },
+                "steps": {
+                    "description": "Steps taken to solve the math problem",
+                    "items": {
+                        "$ref": "#/$defs/ReasoningSteps"
+                    },
+                    "title": "Steps",
+                    "type": "array"
+                }
+            },
+            "additionalProperties": False, # Added this line (AKA requirement #1)
+            "required": [
+                "created_at", # Added this line (AKA requirement #2)
+                "problem",
+                "answer",
+                "steps"
+            ],
+            "title": "MathProblem",
+            "type": "object"
+        }
+    }
+}

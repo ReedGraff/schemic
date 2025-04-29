@@ -1,0 +1,141 @@
+{
+    "$defs": {
+        "NoteSegmentButton": {
+            "properties": {
+                "id": {
+                    "title": "Id",
+                    "type": "string"
+                },
+                "type": {
+                    "$ref": "#/$defs/SegmentType",
+                    "default": "button"
+                },
+                "isDetermined": {
+                    "title": "Isdetermined",
+                    "type": "boolean"
+                },
+                "placeholder": {
+                    "description": "The placeholder text for the button. This is what will be displayed on the button itself.",
+                    "title": "Placeholder",
+                    "type": "string"
+                },
+                "action": {
+                    "description": "The action to take when the button is clicked. This could be a function name, a URL, etc.",
+                    "title": "Action",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "isDetermined",
+                "placeholder",
+                "action"
+            ],
+            "title": "NoteSegmentButton",
+            "type": "object"
+        },
+        "NoteSegmentDropdown": {
+            "properties": {
+                "id": {
+                    "title": "Id",
+                    "type": "string"
+                },
+                "type": {
+                    "$ref": "#/$defs/SegmentType",
+                    "default": "dropdown"
+                },
+                "isDetermined": {
+                    "title": "Isdetermined",
+                    "type": "boolean"
+                },
+                "options": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "title": "Options",
+                    "type": "array"
+                },
+                "selected": {
+                    "items": {
+                        "type": "integer"
+                    },
+                    "title": "Selected",
+                    "type": "array"
+                }
+            },
+            "required": [
+                "isDetermined",
+                "options",
+                "selected"
+            ],
+            "title": "NoteSegmentDropdown",
+            "type": "object"
+        },
+        "NoteSegmentInput": {
+            "properties": {
+                "id": {
+                    "title": "Id",
+                    "type": "string"
+                },
+                "type": {
+                    "$ref": "#/$defs/SegmentType",
+                    "default": "input"
+                },
+                "isDetermined": {
+                    "title": "Isdetermined",
+                    "type": "boolean"
+                },
+                "value": {
+                    "description": "The value of the input field",
+                    "title": "Value",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "isDetermined",
+                "value"
+            ],
+            "title": "NoteSegmentInput",
+            "type": "object"
+        },
+        "SegmentType": {
+            "enum": [
+                "dropdown",
+                "input",
+                "button"
+            ],
+            "title": "SegmentType",
+            "type": "string"
+        }
+    },
+    "properties": {
+        "determined_dir": {
+            "additionalProperties": {
+                "anyOf": [
+                    {
+                        "$ref": "#/$defs/NoteSegmentInput"
+                    },
+                    {
+                        "$ref": "#/$defs/NoteSegmentDropdown"
+                    },
+                    {
+                        "$ref": "#/$defs/NoteSegmentButton"
+                    }
+                ]
+            },
+            "description": "A dictionary where keys are the placeholder IDs (e.g., 'SOMEUUID1') from the template's content_str, and values are the determined content for that placeholder.",  
+            "title": "Determined Dir",
+            "type": "object"
+        },
+        "determined_str": {
+            "description": "The string representing the text for the note section, with '{SOMEUUID1}' representing data from the determined_dir.",
+            "title": "Determined Str",
+            "type": "string"
+        }
+    },
+    "required": [
+        "determined_dir",
+        "determined_str"
+    ],
+    "title": "AISectionResponse",
+    "type": "object"
+}

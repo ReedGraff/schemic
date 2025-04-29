@@ -1,0 +1,11 @@
+{
+    "github.copilot.chat.codeGeneration.useInstructionFiles": true,
+    "github.copilot.chat.codeGeneration.instructions": [
+      {
+        "file": ".vscode/INSTRUCTIONS.md"
+      },
+      {
+        "file": "examples/1/base.py"
+      }
+    ],
+}

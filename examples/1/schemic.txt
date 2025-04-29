@@ -1,0 +1,166 @@
+{
+    "type": "json_schema",
+    "json_schema": {
+        "strict": true,
+        "name": "AISectionResponse",
+        "schema": {
+            "$defs": {
+                "NoteSegmentButton": {
+                    "properties": {
+                        "type": {
+                            "type": "string",
+                            "enum": [
+                                "button"
+                            ],
+                            "title": "SegmentType"
+                        },
+                        "id": {
+                            "title": "Id",
+                            "type": "string"
+                        },
+                        "isDetermined": {
+                            "title": "Isdetermined",
+                            "type": "boolean"
+                        },
+                        "placeholder": {
+                            "description": "The placeholder text for the button.",
+                            "title": "Placeholder",
+                            "type": "string"
+                        },
+                        "action": {
+                            "description": "The action to take when the button is clicked.",
+                            "title": "Action",
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "type",
+                        "id",
+                        "isDetermined",
+                        "placeholder",
+                        "action"
+                    ],
+                    "title": "NoteSegmentButton",
+                    "type": "object",
+                    "additionalProperties": false
+                },
+                "NoteSegmentDropdown": {
+                    "properties": {
+                        "type": {
+                            "type": "string",
+                            "enum": [
+                                "dropdown"
+                            ],
+                            "title": "SegmentType"
+                        },
+                        "id": {
+                            "title": "Id",
+                            "type": "string"
+                        },
+                        "isDetermined": {
+                            "title": "Isdetermined",
+                            "type": "boolean"
+                        },
+                        "options": {
+                            "items": {
+                                "type": "string"
+                            },
+                            "title": "Options",
+                            "type": "array"
+                        },
+                        "selected": {
+                            "items": {
+                                "type": "integer"
+                            },
+                            "title": "Selected",
+                            "type": "array"
+                        }
+                    },
+                    "required": [
+                        "type",
+                        "id",
+                        "isDetermined",
+                        "options",
+                        "selected"
+                    ],
+                    "title": "NoteSegmentDropdown",
+                    "type": "object",
+                    "additionalProperties": false
+                },
+                "NoteSegmentInput": {
+                    "properties": {
+                        "type": {
+                            "type": "string",
+                            "enum": [
+                                "input"
+                            ],
+                            "title": "SegmentType"
+                        },
+                        "id": {
+                            "title": "Id",
+                            "type": "string"
+                        },
+                        "isDetermined": {
+                            "title": "Isdetermined",
+                            "type": "boolean"
+                        },
+                        "value": {
+                            "description": "The value of the input field",
+                            "title": "Value",
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "type",
+                        "id",
+                        "isDetermined",
+                        "value"
+                    ],
+                    "title": "NoteSegmentInput",
+                    "type": "object",
+                    "additionalProperties": false
+                },
+                "SegmentType": {
+                    "enum": [
+                        "dropdown",
+                        "input",
+                        "button"
+                    ],
+                    "title": "SegmentType",
+                    "type": "string"
+                }
+            },
+            "properties": {
+                "determined_dir": {
+                    "additionalProperties": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/$defs/NoteSegmentInput"
+                            },
+                            {
+                                "$ref": "#/$defs/NoteSegmentDropdown"
+                            },
+                            {
+                                "$ref": "#/$defs/NoteSegmentButton"
+                            }
+                        ]
+                    },
+                    "description": "A dictionary where keys are the placeholder IDs (e.g., 'SOMEUUID1') from the template's content_str, and values are the determined content for that placeholder.",
+                    "title": "Determined Dir",
+                    "type": "object"
+                },
+                "determined_str": {
+                    "description": "The string representing the text for the note section, with '{SOMEUUID1}' representing data from the determined_dir.",
+                    "title": "Determined Str",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "determined_str"
+            ],
+            "title": "AISectionResponse",
+            "type": "object",
+            "additionalProperties": false
+        }
+    }
+}

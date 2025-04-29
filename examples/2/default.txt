@@ -1,0 +1,71 @@
+{
+    "$defs": {
+        "ReasoningSteps": {
+            "properties": {
+                "created_at": {
+                    "default": "28/04/2025, 23:33:45",
+                    "description": "Last edited timestamp",
+                    "format": "date-time",
+                    "title": "Created At",
+                    "type": "string"
+                },
+                "step": {
+                    "description": "Step in the reasoning process",
+                    "title": "Step",
+                    "type": "string"
+                },
+                "explanation": {
+                    "description": "Explanation of the step",
+                    "title": "Explanation",
+                    "type": "string"
+                },
+                "result": {
+                    "description": "Result of the step",
+                    "title": "Result",
+                    "type": "number"
+                }
+            },
+            "required": [
+                "step",
+                "explanation",
+                "result"
+            ],
+            "title": "ReasoningSteps",
+            "type": "object"
+        }
+    },
+    "properties": {
+        "created_at": {
+            "default": "28/04/2025, 23:33:45",
+            "description": "Creation timestamp",
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+        },
+        "problem": {
+            "description": "The math problem to solve",
+            "title": "Problem",
+            "type": "string"
+        },
+        "answer": {
+            "description": "The answer to the math problem",
+            "title": "Answer",
+            "type": "number"
+        },
+        "steps": {
+            "description": "Steps taken to solve the math problem",
+            "items": {
+                "$ref": "#/$defs/ReasoningSteps"
+            },
+            "title": "Steps",
+            "type": "array"
+        }
+    },
+    "required": [
+        "problem",
+        "answer",
+        "steps"
+    ],
+    "title": "MathProblem",
+    "type": "object"
+}

@@ -1,0 +1,100 @@
+{
+    "$defs": {
+        "Cat": {
+            "properties": {
+                "pet_type": {
+                    "const": "cat",
+                    "title": "Pet Type",
+                    "type": "string"
+                },
+                "name": {
+                    "title": "Name",
+                    "type": "string"
+                },
+                "meows": {
+                    "title": "Meows",
+                    "type": "boolean"
+                }
+            },
+            "required": [
+                "pet_type",
+                "name",
+                "meows"
+            ],
+            "title": "Cat",
+            "type": "object"
+        },
+        "Dog": {
+            "properties": {
+                "pet_type": {
+                    "const": "dog",
+                    "title": "Pet Type",
+                    "type": "string"
+                },
+                "name": {
+                    "title": "Name",
+                    "type": "string"
+                },
+                "barks": {
+                    "title": "Barks",
+                    "type": "boolean"
+                }
+            },
+            "required": [
+                "pet_type",
+                "name",
+                "barks"
+            ],
+            "title": "Dog",
+            "type": "object"
+        },
+        "PetColor": {
+            "enum": [
+                "black",
+                "white",
+                "brown",
+                "grey",
+                "orange",
+                "yellow"
+            ],
+            "title": "PetColor",
+            "type": "string"
+        }
+    },
+    "properties": {
+        "pet": {
+            "description": "The pet of the owner",
+            "discriminator": {
+                "mapping": {
+                    "cat": "#/$defs/Cat",
+                    "dog": "#/$defs/Dog"
+                },
+                "propertyName": "pet_type"
+            },
+            "oneOf": [
+                {
+                    "$ref": "#/$defs/Cat"
+                },
+                {
+                    "$ref": "#/$defs/Dog"
+                }
+            ],
+            "title": "Pet"
+        },
+        "pet_name": {
+            "description": "Name of the pet",
+            "title": "Pet Name",
+            "type": "string"
+        },
+        "pet_color": {
+            "$ref": "#/$defs/PetColor",
+            "description": "Color of the pet"
+        }
+    },
+    "required": [
+        "pet",
+        "pet_name"
+    ],
+    "title": "PetOwner",
+    "type": "object"
+}

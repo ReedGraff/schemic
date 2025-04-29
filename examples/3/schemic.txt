@@ -1,0 +1,110 @@
+{
+    "type": "json_schema",
+    "json_schema": {
+        "strict": true,
+        "name": "PetOwner",
+        "schema": {
+            "$defs": {
+                "Cat": {
+                    "properties": {
+                        "pet_type": {
+                            "const": "cat",
+                            "title": "Pet Type",
+                            "type": "string"
+                        },
+                        "name": {
+                            "title": "Name",
+                            "type": "string"
+                        },
+                        "meows": {
+                            "title": "Meows",
+                            "type": "boolean"
+                        }
+                    },
+                    "required": [
+                        "pet_type",
+                        "name",
+                        "meows"
+                    ],
+                    "title": "Cat",
+                    "type": "object",
+                    "additionalProperties": false
+                },
+                "Dog": {
+                    "properties": {
+                        "pet_type": {
+                            "const": "dog",
+                            "title": "Pet Type",
+                            "type": "string"
+                        },
+                        "name": {
+                            "title": "Name",
+                            "type": "string"
+                        },
+                        "barks": {
+                            "title": "Barks",
+                            "type": "boolean"
+                        }
+                    },
+                    "required": [
+                        "pet_type",
+                        "name",
+                        "barks"
+                    ],
+                    "title": "Dog",
+                    "type": "object",
+                    "additionalProperties": false
+                },
+                "PetColor": {
+                    "enum": [
+                        "black",
+                        "white",
+                        "brown",
+                        "grey",
+                        "orange",
+                        "yellow"
+                    ],
+                    "title": "PetColor",
+                    "type": "string"
+                }
+            },
+            "properties": {
+                "pet": {
+                    "description": "The pet of the owner",
+                    "discriminator": {
+                        "mapping": {
+                            "cat": "#/$defs/Cat",
+                            "dog": "#/$defs/Dog"
+                        },
+                        "propertyName": "pet_type"
+                    },
+                    "title": "Pet",
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/Cat"
+                        },
+                        {
+                            "$ref": "#/$defs/Dog"
+                        }
+                    ]
+                },
+                "pet_name": {
+                    "description": "Name of the pet",
+                    "title": "Pet Name",
+                    "type": "string"
+                },
+                "pet_color": {
+                    "$ref": "#/$defs/PetColor"
+                }
+            },
+            "required": [
+                "pet",
+                "pet_name",
+                "pet_color"
+            ],
+            "title": "PetOwner",
+            "type": "object",
+            "additionalProperties": false
+        }
+    }
+}

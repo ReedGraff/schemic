@@ -1,0 +1,78 @@
+{
+    "type": "json_schema",
+    "json_schema": {
+        "strict": true,
+        "name": "MathProblem",
+        "schema": {
+            "$defs": {
+                "ReasoningSteps": {
+                    "properties": {
+                        "created_at": {
+                            "description": "Last edited timestamp",
+                            "title": "Created At",
+                            "type": "string"
+                        },
+                        "step": {
+                            "description": "Step in the reasoning process",
+                            "title": "Step",
+                            "type": "string"
+                        },
+                        "explanation": {
+                            "description": "Explanation of the step",
+                            "title": "Explanation",
+                            "type": "string"
+                        },
+                        "result": {
+                            "description": "Result of the step",
+                            "title": "Result",
+                            "type": "number"
+                        }
+                    },
+                    "required": [
+                        "created_at",
+                        "step",
+                        "explanation",
+                        "result"
+                    ],
+                    "title": "ReasoningSteps",
+                    "type": "object",
+                    "additionalProperties": false
+                }
+            },
+            "properties": {
+                "created_at": {
+                    "description": "Creation timestamp",
+                    "title": "Created At",
+                    "type": "string"
+                },
+                "problem": {
+                    "description": "The math problem to solve",
+                    "title": "Problem",
+                    "type": "string"
+                },
+                "answer": {
+                    "description": "The answer to the math problem",
+                    "title": "Answer",
+                    "type": "number"
+                },
+                "steps": {
+                    "description": "Steps taken to solve the math problem",
+                    "items": {
+                        "$ref": "#/$defs/ReasoningSteps"
+                    },
+                    "title": "Steps",
+                    "type": "array"
+                }
+            },
+            "required": [
+                "created_at",
+                "problem",
+                "answer",
+                "steps"
+            ],
+            "title": "MathProblem",
+            "type": "object",
+            "additionalProperties": false
+        }
+    }
+}

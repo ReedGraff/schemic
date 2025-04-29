@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name="schemic",
-    version="1.0.0",
+    version="1.1.0",
     author="Reed Graff",
     author_email="rangergraff@gmail.com",
     description="Simplify using Pydantic models with LLMs in a type-safe way",

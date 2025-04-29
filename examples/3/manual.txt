@@ -1,0 +1,111 @@
+{
+    "type": "json_schema",
+    "json_schema": {
+        "strict": True,
+        "name": "PetOwner",
+        "schema": { # Added everything before this line (AKA requirement #8)
+            "$defs": {
+                "Cat": {
+                    "properties": {
+                        "pet_type": {
+                            "const": "cat",
+                            "title": "Pet Type",
+                            "type": "string"
+                        },
+                        "name": {
+                            "title": "Name",
+                            "type": "string"
+                        },
+                        "meows": {
+                            "title": "Meows",
+                            "type": "boolean"
+                        }
+                    },
+                    "additionalProperties": False, # Added this line (AKA requirement #1)
+                    "required": [
+                        "pet_type",
+                        "name",
+                        "meows"
+                    ],
+                    "title": "Cat",
+                    "type": "object"
+                },
+                "Dog": {
+                    "properties": {
+                        "pet_type": {
+                            "const": "dog",
+                            "title": "Pet Type",
+                            "type": "string"
+                        },
+                        "name": {
+                            "title": "Name",
+                            "type": "string"
+                        },
+                        "barks": {
+                            "title": "Barks",
+                            "type": "boolean"
+                        }
+                    },
+                    "additionalProperties": False, # Added this line (AKA requirement #1)
+                    "required": [
+                        "pet_type",
+                        "name",
+                        "barks"
+                    ],
+                    "title": "Dog",
+                    "type": "object"
+                },
+                "PetColor": {
+                    "enum": [
+                        "black",
+                        "white",
+                        "brown",
+                        "grey",
+                        "orange",
+                        "yellow"
+                    ],
+                    "title": "PetColor",
+                    "type": "string"
+                }
+            },
+            "properties": {
+                "pet": {
+                    "description": "The pet of the owner",
+                    "discriminator": {
+                        "mapping": {
+                            "cat": "#/$defs/Cat",
+                            "dog": "#/$defs/Dog"
+                        },
+                        "propertyName": "pet_type"
+                    },
+                    "anyOf": [ # changed from oneOf to anyOf (AKA requirement #5)
+                        {
+                            "$ref": "#/$defs/Cat"
+                        },
+                        {
+                            "$ref": "#/$defs/Dog"
+                        }
+                    ],
+                    "title": "Pet"
+                },
+                "pet_name": {
+                    "description": "Name of the pet",
+                    "title": "Pet Name",
+                    "type": "string"
+                },
+                "pet_color": {
+                    "$ref": "#/$defs/PetColor",
+                    # removed description, as $refs do not support additional keys (AKA requirement #11)
+                }
+            },
+            "additionalProperties": False, # Added this line (AKA requirement #1)
+            "required": [
+                "pet",
+                "pet_name",
+                "pet_color" # Added this line (AKA requirement #2)
+            ],
+            "title": "PetOwner",
+            "type": "object"
+        }
+    }
+}
